@@ -1,41 +1,63 @@
-name: 🐛 Bug Report
-description: Something is wrong with the Stack.
+name: "Bug report"
+description: Create a report to help us improve
 body:
   - type: markdown
     attributes:
-      value: >-
-        Thank you for helping to improve Remix!
+      value: |
+        Thank you for reporting an issue :pray:.
 
-        Our bandwidth on maintaining these stacks is limited. As a team, we're
-        currently focusing our efforts on Remix itself. The good news is you can
-        fork and adjust this stack however you'd like and start using it today
-        as a custom stack. Learn more from
-        [the Remix Stacks docs](https://remix.run/stacks).
+        This issue tracker is for bugs and issues found with [Bolt.new](https://bolt.new).
+        If you experience issues related to WebContainer, please file an issue in our [WebContainer repo](https://github.com/stackblitz/webcontainer-core), or file an issue in our [StackBlitz core repo](https://github.com/stackblitz/core) for issues with StackBlitz.
 
-        If you'd still like to report a bug, please fill out this form. We can't
-        promise a timely response, but hopefully when we have the bandwidth to
-        work on these stacks again we can take a look. Thanks!
-
+        The more information you fill in, the better we can help you.
+  - type: textarea
+    id: description
+    attributes:
+      label: Describe the bug
+      description: Provide a clear and concise description of what you're running into.
+    validations:
+      required: true
   - type: input
+    id: link
     attributes:
-      label: Have you experienced this bug with the latest version of the template?
+      label: Link to the Bolt URL that caused the error
+      description: Please do not delete it after reporting!
     validations:
       required: true
   - type: textarea
+    id: steps
     attributes:
-      label: Steps to Reproduce
-      description: Steps to reproduce the behavior.
+      label: Steps to reproduce
+      description: Describe the steps we have to take to reproduce the behavior.
+      placeholder: |
+        1. Go to '...'
+        2. Click on '....'
+        3. Scroll down to '....'
+        4. See error
     validations:
       required: true
   - type: textarea
+    id: expected
     attributes:
-      label: Expected Behavior
-      description: A concise description of what you expected to happen.
+      label: Expected behavior
+      description: Provide a clear and concise description of what you expected to happen.
     validations:
       required: true
   - type: textarea
+    id: screenshots
     attributes:
-      label: Actual Behavior
-      description: A concise description of what you're experiencing.
-    validations:
-      required: true
+      label: Screen Recording / Screenshot
+      description: If applicable, **please include a screen recording** (preferably) or screenshot showcasing the issue. This will assist us in resolving your issue <u>quickly</u>.
+  - type: textarea
+    id: platform
+    attributes:
+      label: Platform
+      value: |
+        - OS: [e.g. macOS, Windows, Linux]
+        - Browser: [e.g. Chrome, Safari, Firefox]
+        - Version: [e.g. 91.1]
+  - type: textarea
+    id: additional
+    attributes:
+      label: Additional context
+      description: Add any other context about the problem here.
