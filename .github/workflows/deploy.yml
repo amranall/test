@@ -30,15 +30,15 @@ jobs:
       - name: ⎔ Setup node
         uses: actions/setup-node@v4
         with:
-          cache: pnpm
+          cache: npm
           cache-dependency-path: ./package.json
           node-version: 18
 
       - name: 📥 Install deps
-        run: pnpm install
+        run: npm install
 
       - name: 🔬 Lint
-        run: pnpm run lint
+        run: npm run lint
 
   typecheck:
     name: ʦ TypeScript
@@ -75,10 +75,10 @@ jobs:
           node-version: 18
 
       - name: 📥 Install deps
-        run: pnpm install
+        run: npm install
 
       - name: ⚡ Run vitest
-        run: pnpm run test -- --coverage
+        run: npm run test -- --coverage
 
   cypress:
     name: ⚫️ Cypress
@@ -93,20 +93,20 @@ jobs:
       - name: ⎔ Setup node
         uses: actions/setup-node@v4
         with:
-          cache: pnpm
+          cache: npm
           cache-dependency-path: ./package.json
           node-version: 18
 
       - name: 📥 Install deps
-        run: pnpm install
+        run: npm install
 
       - name: 🏗 Build
-        run: pnpm run build
+        run: npm run build
 
       - name: 🌳 Cypress run
         uses: cypress-io/github-action@v6
         with:
-          start: pnpm run dev
+          start: npm run dev
           wait-on: "http://localhost:8811"
         env:
           PORT: "8811"
@@ -122,7 +122,7 @@ jobs:
       - name: ⎔ Setup node
         uses: actions/setup-node@v4
         with:
-          cache: pnpm
+          cache: npm
           cache-dependency-path: ./package.json
           node-version: 18
 
@@ -136,13 +136,13 @@ jobs:
           VER=`npm --version`; echo "npm ver:    $VER"
 
       - name: 📥 Install deps
-        run: pnpm install
+        run: npm install
 
       - name: 🏗 Build
-        run: pnpm run build
+        run: npm run build
 
       - name: 🛠 Install Arc
-        run: pnpm i -g @architect/architect
+        run: npm i -g @architect/architect
 
       - name: 🚀 Staging Deploy
         if: github.ref == 'refs/heads/dev'

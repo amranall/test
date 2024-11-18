@@ -27,7 +27,7 @@ jobs:
           node-version: 16
 
       - name: 📥 Install deps
-        run: pnpm install
+        run: npm install
 
       - name: 🔬 Lint
-        run: pnpm run lint
+        run: npm run lint
