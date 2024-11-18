@@ -1,0 +1,65 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - master  # Trigger only for the master branch
+
+jobs:
+  build_and_test:
+    name: Build and Test
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Checkout the repository
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      # Step 2: Run Setup and Build using your custom action
+      - name: Setup and Build
+        uses: ./.github/actions/setup-and-build
+        with:
+          pnpm-version: '9.4.0'
+          node-version: '20.15.1'
+
+      # Step 3: Run type checks
+      - name: Type Check
+        run: pnpm run typecheck
+
+      # Step 4: Run Tests
+      - name: Run Tests
+        run: pnpm run test
+
+  deploy:
+    name: Deploy to AWS
+    runs-on: ubuntu-latest
+    needs: build_and_test  # This ensures deployment only happens if the build_and_test job succeeds
+
+    steps:
+      # Step 1: Checkout the repository
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      # Step 2: Configure AWS Credentials
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v3
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1  # Change to your AWS region
+
+      # Step 3: Deploy to S3 (Example for static site deployment)
+      - name: Deploy to S3
+        run: |
+          aws s3 sync ./build s3://your-s3-bucket-name --delete
+
+      # Optional Step 4: Deploy to EC2 (Example for backend deployment)
+      - name: Deploy to EC2
+        if: always()
+        run: |
+          ssh -i ${{ secrets.EC2_KEY_PAIR_PATH }} ec2-user@<EC2_PUBLIC_IP> <<EOF
+          cd /path/to/app
+          git pull origin master
+          pnpm install --production
+          pm2 restart all
+          EOF
