@@ -3,7 +3,7 @@ name: CI/CD Pipeline
 on:
   push:
     branches:
-      - master  # Trigger only for the master branch
+      - main  # Trigger only for the master branch
 
 jobs:
   build_and_test:
